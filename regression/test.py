@@ -1,6 +1,7 @@
 import pandas as pd 
-from regressionNormalEquation import normalEquationRegression
-from gradientDescentRegression import gradientDescentRegression
+from normalEquationRegression import normalEquationRegression
+from gradientDescentRegression import gradientDescentRegression, gradientDescentAutogradRegression
+from ridgeRegression import *
 from errorUtil import rootMeanSquareError
 
 if __name__ == '__main__':
@@ -17,20 +18,55 @@ if __name__ == '__main__':
 	XTest = realEstate.loc[ntrain:,:5].values
 	yTest = realEstate.loc[ntrain:,6:].values
 
-	# Normal Equation Regression
-	n = normalEquationRegression(X,y)
-	n.train()
+	# # # Normal Equation Regression
+	# learner = normalEquationRidgeRegression(X,y)
+	# learner.train()
+	# # Predict
+	# yTestPredict = learner.predict(XTest)
+	# # Get RMS
+	# predictedRMS = rootMeanSquareError(yTest, yTestPredict)
+	# print("NormalEquationRegression RMS Error", predictedRMS)
+
+	# # # Gradient Descent Regression
+	# learner = gradientDescentRegression(X,y,alpha=0.0000001, numberIterations=25)
+	# learner.train()
+	# # Predict
+	# yTestPredict = learner.predict(XTest)
+	# # Get RMS
+	# predictedRMS = rootMeanSquareError(yTest, yTestPredict)
+	# print("gradientDescentRegression RMS Error", predictedRMS)
+
+	# # # gradient Descent Autograd Regression
+	learner = gradientDescentAutogradRegression(X,y,alpha=0.0000001, numberIterations=25)
+	learner.train()
 	# Predict
-	yTestPredict = n.predict(XTest)
+	yTestPredict = learner.predict(XTest)
 	# Get RMS
 	predictedRMS = rootMeanSquareError(yTest, yTestPredict)
-	print("NormalEquationRegression RMS Error", predictedRMS)
+	print("gradientDescentAutogradRegression RMS Error", predictedRMS)
 
-	# gradient Descent Regression
-	gD = gradientDescentRegression(X,y,alpha=0.0000001, numberIterations=20)
-	gD.train()
+
+	# learner = normalEquationRidgeRegression(X,y, lambda_ = 0.5 ) 
+	# learner.train()
+	# # Predict
+	# yTestPredict = learner.predict(XTest)
+	# # Get RMS
+	# predictedRMS = rootMeanSquareError(yTest, yTestPredict)
+	# print("normalEquationRidgeRegression RMS Error", predictedRMS)
+
+	# learner = gradientDescentRidgeRegression(X, y, alpha=0.0000001, numberIterations=25, lambda_ = 0.01 ) 
+	# learner.train()
+	# # Predict
+	# yTestPredict = learner.predict(XTest)
+	# # Get RMS
+	# predictedRMS = rootMeanSquareError(yTest, yTestPredict)
+	# print("gradientDescentRidgeRegression RMS Error", predictedRMS)
+
+
+	learner = gradientDescentAutogradRidgeRegression(X,y,alpha=0.0000001, numberIterations=25, lambda_ = 5 ) 
+	learner.train()
 	# Predict
-	GDyTestPredict = gD.predict(XTest)
+	yTestPredict = learner.predict(XTest)
 	# Get RMS
-	GDpredictedRMS = rootMeanSquareError(yTest, GDyTestPredict)
-	print("gradientDescentRegression RMS Error", GDpredictedRMS)
+	predictedRMS = rootMeanSquareError(yTest, yTestPredict)
+	print("gradientDescentAutogradRidgeRegression RMS Error", predictedRMS)
