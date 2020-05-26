@@ -23,8 +23,8 @@ class normalEquationRidgeRegression(normalEquationRegression):
 
 
 class gradientDescentRidgeRegression(gradientDescentRegression):
-    def __init__(self, X, y, alpha, numberIterations=50, lambda_ = 0.01):
-        super(gradientDescentRidgeRegression, self). __init__(X, y, alpha, numberIterations)
+    def __init__(self, X, y, alpha=0.0000001, numberIterations=50, lambda_ = 0.01):
+        super(gradientDescentRidgeRegression, self).__init__(X, y, alpha, numberIterations)
         self.lambda_ = lambda_
 
     def updateTheta(self):
@@ -35,8 +35,8 @@ class gradientDescentRidgeRegression(gradientDescentRegression):
 
 
 class gradientDescentAutogradRidgeRegression(gradientDescentAutogradRegression):
-    def __init__(self, X, y, alpha, numberIterations=50, lambda_ = 0.01):
-        super(gradientDescentAutogradRidgeRegression, self). __init__(X, y, alpha, numberIterations)
+    def __init__(self, X, y, alpha=0.0000001, numberIterations=50, lambda_ = 0.01):
+        super(gradientDescentAutogradRidgeRegression, self).__init__(X, y, alpha, numberIterations)
         self.lambda_ = lambda_
         self.gradientFunction = grad(self.trainingLoss)
 
@@ -45,8 +45,3 @@ class gradientDescentAutogradRidgeRegression(gradientDescentAutogradRegression):
         epsilon = self.y - yPredicted
         mse = (np.sum(epsilon**2) + self.lambda_*np.matmul(theta.T, theta))/self.sampleCount
         return mse
-
-    # def trainingLoss(self, theta):
-    #     yPredicted = self.augmentedX.dot(theta)
-    #     mse = np.sum((self.y-yPredicted)**2)/self.sampleCount
-    #     return mse
