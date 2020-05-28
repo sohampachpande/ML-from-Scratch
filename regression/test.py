@@ -4,6 +4,8 @@ from gradientDescentRegression import gradientDescentRegression, gradientDescent
 from ridgeRegression import *
 from coordinateDescentRegression import coordinateDescentRegression
 from lassoRegression import coordinateDescentLassoRegression, gradientDescentAutogradLassoRegression
+from stochasticGradientDescentRegression import stochasticGradientDescentRegression, stochasticGradientDescentAutogradRegression
+from minibatchGradientDescentRegression import minibatchGradientDescentRegression, minibatchGradientDescentAutogradRegression
 from errorUtil import rootMeanSquareError
 
 if __name__ == '__main__':
@@ -112,10 +114,48 @@ if __name__ == '__main__':
 
 
 	# # # gradientDescentAutogradLassoRegression
-	learner = gradientDescentAutogradLassoRegression(X,y,alpha=0.001, numberIterations=10, lambda_ = 5 ) 
+	# learner = gradientDescentAutogradLassoRegression(X,y,alpha=0.001, numberIterations=10, lambda_ = 5 ) 
+	# learner.train()
+	# # Predict
+	# yTestPredict = learner.predict(XTest)
+	# # Get RMS
+	# predictedRMS = rootMeanSquareError(yTest, yTestPredict)
+	# print("gradientDescentAutogradLassoRegression RMS Error", predictedRMS)
+
+
+	# # # stochasticGradientDescentRegression
+	# learner = stochasticGradientDescentRegression(X,y,alpha=0.0000001, numberIterations=100) 
+	# learner.train()
+	# # Predict
+	# yTestPredict = learner.predict(XTest)
+	# # Get RMS
+	# predictedRMS = rootMeanSquareError(yTest, yTestPredict)
+	# print("stochasticGradientDescentRegression RMS Error", predictedRMS)
+
+	# # # stochasticGradientDescentAutogradRegression
+	# learner = stochasticGradientDescentAutogradRegression(X,y,alpha=0.0000001, numberIterations=100) 
+	# learner.train()
+	# # Predict
+	# yTestPredict = learner.predict(XTest)
+	# # Get RMS
+	# predictedRMS = rootMeanSquareError(yTest, yTestPredict)
+	# print("stochasticGradientDescentAutogradRegression RMS Error", predictedRMS)
+
+
+	# # # minibatchGradientDescentRegression
+	# learner = minibatchGradientDescentRegression(X,y,batchSize=16, alpha=0.00000001, numberIterations=100) 
+	# learner.train()
+	# # Predict
+	# yTestPredict = learner.predict(XTest)
+	# # Get RMS
+	# predictedRMS = rootMeanSquareError(yTest, yTestPredict)
+	# print("minibatchGradientDescentRegression RMS Error", predictedRMS)
+	
+	# # # minibatchGradientDescentAutogradRegression
+	learner = minibatchGradientDescentAutogradRegression(X,y,batchSize=16, alpha=0.00000001, numberIterations=100) 
 	learner.train()
 	# Predict
 	yTestPredict = learner.predict(XTest)
 	# Get RMS
 	predictedRMS = rootMeanSquareError(yTest, yTestPredict)
-	print("gradientDescentAutogradLassoRegression RMS Error", predictedRMS)
+	print("minibatchGradientDescentAutogradRegression RMS Error", predictedRMS)
